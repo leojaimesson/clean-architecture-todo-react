@@ -24,6 +24,7 @@ type CheckboxContainerProps = {
 export const CheckboxContainer = styled.label`
   display: flex;
   align-items: flex-start;
+  opacity: ${({ checked }: CheckboxContainerProps) => (checked ? "0.5" : "1")};
 
   span {
     margin: 0px 1rem;
