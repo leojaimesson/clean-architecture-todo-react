@@ -19,18 +19,17 @@ export const ListContainer = styled.div`
 
 export const CheckboxContainer = styled.label`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   span {
     margin: 0px 1rem;
     font-size: 1.2rem;
-    font-weight: bold;
-    height: 28px;
+    min-height: 28px;
   }
 `;
 
 export const ItemContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 10px 0px;
+  margin: 20px 0px;
 `;
