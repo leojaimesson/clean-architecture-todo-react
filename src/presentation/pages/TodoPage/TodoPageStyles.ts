@@ -32,7 +32,7 @@ export const CheckboxContainer = styled.label`
     text-decoration: ${({ checked }: CheckboxContainerProps) =>
       checked ? "line-through" : "none"};
     color: ${({ checked }: CheckboxContainerProps) =>
-      checked ? "var(--color-secondary)" : "var(--shape)"};
+      checked ? "var(--color-green)" : "var(--shape)"};
   }
 `;
 

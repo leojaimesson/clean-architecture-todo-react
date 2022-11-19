@@ -33,7 +33,7 @@ export const StyledCheckbox = styled.div`
   display: inline-block;
   width: 28px;
   height: 28px;
-  background: ${(props: Props) => (props.checked ? "var(--color-primary)" : "var(--shape)")};
+  background: ${(props: Props) => (props.checked ? "var(--color-emerald-green)" : "var(--shape)")};
   border-radius: 3px;
   transition: all 150ms;
 
