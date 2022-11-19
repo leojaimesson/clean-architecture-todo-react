@@ -17,6 +17,10 @@ export const ListContainer = styled.div`
   border-radius: 5px;
 `;
 
+type CheckboxContainerProps = {
+  checked: boolean;
+};
+
 export const CheckboxContainer = styled.label`
   display: flex;
   align-items: flex-start;
@@ -25,6 +29,10 @@ export const CheckboxContainer = styled.label`
     margin: 0px 1rem;
     font-size: 1.2rem;
     min-height: 28px;
+    text-decoration: ${({ checked }: CheckboxContainerProps) =>
+      checked ? "line-through" : "none"};
+    color: ${({ checked }: CheckboxContainerProps) =>
+      checked ? "var(--color-secondary)" : "var(--shape)"};
   }
 `;
 

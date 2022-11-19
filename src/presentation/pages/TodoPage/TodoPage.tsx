@@ -78,7 +78,6 @@ export function TodoPage({
     todo.done = !todo.done;
     await saveTodo.execute(todo);
     await runRetrieveTodos();
-    console.log(todo);
   }
 
   return (
@@ -94,7 +93,7 @@ export function TodoPage({
       <ListContainer>
         {todos.map((todo) => (
           <ItemContainer key={todo.key}>
-            <CheckboxContainer>
+            <CheckboxContainer checked={todo.done}>
               <Checkbox
                 checked={todo.done}
                 onChange={() => handleMarkAsDone(todo)}
