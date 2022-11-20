@@ -73,16 +73,16 @@ export const TodoItem: React.FC<Props> = ({
       </CheckboxContainer>
       <ButtonActionsContainer>
         {editMode && (
-          <Button onClick={handleClickSave}>
+          <Button onClick={handleClickSave} background="var(--color-green)">
             <img src={SaveIcon} alt="save icon" />
           </Button>
         )}
         {!editMode && (
-          <Button onClick={handleClickEdit}>
+          <Button onClick={handleClickEdit} background="var(--color-blue)">
             <img src={EditIcon} alt="edit icon" />
           </Button>
         )}
-        <Button onClick={() => onClickDeleteButton(todo)}>
+        <Button onClick={() => onClickDeleteButton(todo)} >
           <img src={DeleteIcon} alt="delete icon" />
         </Button>
       </ButtonActionsContainer>

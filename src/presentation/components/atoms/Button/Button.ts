@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
+type Props = {
+  background?: string;
+};
+
 export const Button = styled.button`
-  background: var(--color-secondary);
+  background: ${({ background }: Props) =>
+    background ? background : "var(--color-secondary)"};
   color: white;
   text-transform: uppercase;
   border: none;
