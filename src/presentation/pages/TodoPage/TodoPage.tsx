@@ -12,17 +12,17 @@ import { RemoveTodo } from "../../../domain/usecases/RemoveTodo";
 import { RetrieveTodos } from "../../../domain/usecases/RetrieveTodos";
 import { Title } from "../../components/atoms/Title/Title";
 import { Input } from "../../components/atoms/Input/Input";
-import {
-  Container,
-  ListContainer,
-} from "./TodoPageStyles";
+import { ActionsContainer, Container, ListContainer } from "./TodoPageStyles";
 
 import { TodoItem } from "../../components/molecules/TodoItem/TodoItem";
+import { Button } from "../../components/atoms/Button/Button";
+import { RemoveAllTodos } from "../../../domain/usecases/RemoveAllTodos";
 
 type Props = {
   saveTodo: SaveTodo;
   retrieveTodos: RetrieveTodos;
   removeTodo: RemoveTodo;
+  removeAllTodos: RemoveAllTodos;
   generateUUID: UUIDGenerator;
 };
 
@@ -30,6 +30,7 @@ export function TodoPage({
   saveTodo,
   retrieveTodos,
   removeTodo,
+  removeAllTodos,
   generateUUID,
 }: Props) {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -60,6 +61,11 @@ export function TodoPage({
 
   async function handleRemoveTodo(todo: Todo) {
     await removeTodo.execute(todo);
+    await runRetrieveTodos();
+  }
+
+  async function handleRemoveAllTodos() {
+    await removeAllTodos.execute();
     await runRetrieveTodos();
   }
 
@@ -98,6 +104,9 @@ export function TodoPage({
         placeholder="enter a description"
       />
       <ListContainer>
+        <ActionsContainer>
+          <Button onClick={handleRemoveAllTodos}>Remove All</Button>
+        </ActionsContainer>
         {todos.map((todo) => (
           <TodoItem
             key={todo.key}

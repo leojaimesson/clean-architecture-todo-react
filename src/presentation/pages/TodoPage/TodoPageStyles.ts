@@ -11,8 +11,15 @@ export const Container = styled.div`
 
 export const ListContainer = styled.div`
   background-color: var(--color-purple);
-  margin-top: 20px;
+  margin-top: 40px;
   border: 1px solid var(--color-primary);
-  padding: 15px;
+  padding: 35px 15px 15px 15px;
   border-radius: 5px;
+  position: relative;
+`;
+
+export const ActionsContainer = styled.div`
+  position: absolute;
+  right: 15px;
+  top: -16px;
 `;
