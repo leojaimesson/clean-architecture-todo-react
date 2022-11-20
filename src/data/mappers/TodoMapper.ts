@@ -1,4 +1,4 @@
-import { Todo } from "../../../domain/models/Todo";
+import { Todo } from "../../domain/models/Todo";
 
 type TodoListMap = {
   [key: string]: Todo;

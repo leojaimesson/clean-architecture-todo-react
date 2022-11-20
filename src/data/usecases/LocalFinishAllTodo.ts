@@ -1,6 +1,6 @@
 import { Todo } from "../../domain/models/Todo";
 import { FinishAllTodo } from "../../domain/usecases/FinishAllTodo";
-import { TodoMapper } from "../protocols/mappers/TodoMapper";
+import { TodoMapper } from "../mappers/TodoMapper";
 import { SaveStorage } from "../protocols/storage/SaveStorage";
 
 export class LocalFinishAllTodo implements FinishAllTodo {
