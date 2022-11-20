@@ -1,7 +1,7 @@
-import { RemoveAllTodos } from "../../domain/usecases/RemoveAllTodos";
+import { RemoveAllTodo } from "../../domain/usecases/RemoveAllTodo";
 import { RemoveStorage } from "../protocols/storage/RemoveStorage";
 
-export class LocalRemoveAllTodos implements RemoveAllTodos {
+export class LocalRemoveAllTodo implements RemoveAllTodo {
   constructor(
     private readonly key: string,
     private readonly removeStorage: RemoveStorage

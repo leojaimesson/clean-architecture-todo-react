@@ -1,5 +1,5 @@
 import { Todo } from "../models/Todo";
 
-export interface RetrieveTodos {
+export interface RetrieveAllTodo {
   execute(): Promise<Todo[]>;
 }

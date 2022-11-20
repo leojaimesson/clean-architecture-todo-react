@@ -9,45 +9,45 @@ import { UUIDGenerator } from "../../../data/protocols/database/UUIDGenerator";
 import { Todo } from "../../../domain/models/Todo";
 import { SaveTodo } from "../../../domain/usecases/SaveTodo";
 import { RemoveTodo } from "../../../domain/usecases/RemoveTodo";
-import { RetrieveTodos } from "../../../domain/usecases/RetrieveTodos";
+import { RetrieveAllTodo } from "../../../domain/usecases/RetrieveAllTodo";
 import { Title } from "../../components/atoms/Title/Title";
 import { Input } from "../../components/atoms/Input/Input";
 import { ActionsContainer, Container, ListContainer } from "./TodoPageStyles";
 
 import { TodoItem } from "../../components/molecules/TodoItem/TodoItem";
 import { Button } from "../../components/atoms/Button/Button";
-import { RemoveAllTodos } from "../../../domain/usecases/RemoveAllTodos";
+import { RemoveAllTodo } from "../../../domain/usecases/RemoveAllTodo";
 
 type Props = {
   saveTodo: SaveTodo;
-  retrieveTodos: RetrieveTodos;
+  retrieveAllTodo: RetrieveAllTodo;
   removeTodo: RemoveTodo;
-  removeAllTodos: RemoveAllTodos;
+  removeAllTodo: RemoveAllTodo;
   generateUUID: UUIDGenerator;
 };
 
 export function TodoPage({
   saveTodo,
-  retrieveTodos,
+  retrieveAllTodo,
   removeTodo,
-  removeAllTodos,
+  removeAllTodo,
   generateUUID,
 }: Props) {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [description, setDescription] = useState<string>("");
 
-  const memoizedRunRetrieveTodos = useCallback(runRetrieveTodos, [
-    retrieveTodos,
+  const memoizedRunRetrieveAllTodo = useCallback(runRetrieveAllTodo, [
+    retrieveAllTodo,
   ]);
 
   useEffect(() => {
-    memoizedRunRetrieveTodos();
-  }, [memoizedRunRetrieveTodos]);
+    memoizedRunRetrieveAllTodo();
+  }, [memoizedRunRetrieveAllTodo]);
 
-  async function runRetrieveTodos() {
-    const todos = Object.values(await retrieveTodos.execute());
+  async function runRetrieveAllTodo() {
+    const todoList = Object.values(await retrieveAllTodo.execute());
     setTodos(
-      todos.sort(
+      todoList.sort(
         (a, b) =>
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       )
@@ -61,12 +61,12 @@ export function TodoPage({
 
   async function handleRemoveTodo(todo: Todo) {
     await removeTodo.execute(todo);
-    await runRetrieveTodos();
+    await runRetrieveAllTodo();
   }
 
   async function handleRemoveAllTodos() {
-    await removeAllTodos.execute();
-    await runRetrieveTodos();
+    await removeAllTodo.execute();
+    await runRetrieveAllTodo();
   }
 
   async function handleEnterInput(event: KeyboardEvent) {
@@ -84,13 +84,13 @@ export function TodoPage({
 
   async function handleSaveTodo(todo: Todo) {
     await saveTodo.execute(todo);
-    await runRetrieveTodos();
+    await runRetrieveAllTodo();
   }
 
   async function handleMarkAsDone(todo: Todo) {
     todo.done = !todo.done;
     await saveTodo.execute(todo);
-    await runRetrieveTodos();
+    await runRetrieveAllTodo();
   }
 
   return (
@@ -106,6 +106,7 @@ export function TodoPage({
       <ListContainer>
         <ActionsContainer>
           <Button onClick={handleRemoveAllTodos}>Remove All</Button>
+          <Button background="var(--color-emerald-green)">Finish All</Button>
         </ActionsContainer>
         {todos.map((todo) => (
           <TodoItem

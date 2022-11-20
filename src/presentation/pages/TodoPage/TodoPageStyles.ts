@@ -22,4 +22,12 @@ export const ActionsContainer = styled.div`
   position: absolute;
   right: 15px;
   top: -16px;
+
+  button {
+    margin-right: 10px;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
 `;
