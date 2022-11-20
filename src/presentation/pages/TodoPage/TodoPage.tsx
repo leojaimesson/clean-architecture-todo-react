@@ -17,12 +17,14 @@ import { ActionsContainer, Container, ListContainer } from "./TodoPageStyles";
 import { TodoItem } from "../../components/molecules/TodoItem/TodoItem";
 import { Button } from "../../components/atoms/Button/Button";
 import { RemoveAllTodo } from "../../../domain/usecases/RemoveAllTodo";
+import { FinishAllTodo } from "../../../domain/usecases/FinishAllTodo";
 
 type Props = {
   saveTodo: SaveTodo;
   retrieveAllTodo: RetrieveAllTodo;
   removeTodo: RemoveTodo;
   removeAllTodo: RemoveAllTodo;
+  finishAllTodo: FinishAllTodo;
   generateUUID: UUIDGenerator;
 };
 
@@ -31,6 +33,7 @@ export function TodoPage({
   retrieveAllTodo,
   removeTodo,
   removeAllTodo,
+  finishAllTodo,
   generateUUID,
 }: Props) {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -45,7 +48,7 @@ export function TodoPage({
   }, [memoizedRunRetrieveAllTodo]);
 
   async function runRetrieveAllTodo() {
-    const todoList = Object.values(await retrieveAllTodo.execute());
+    const todoList = await retrieveAllTodo.execute();
     setTodos(
       todoList.sort(
         (a, b) =>
@@ -64,8 +67,13 @@ export function TodoPage({
     await runRetrieveAllTodo();
   }
 
-  async function handleRemoveAllTodos() {
+  async function handleRemoveAllTodo() {
     await removeAllTodo.execute();
+    await runRetrieveAllTodo();
+  }
+
+  async function handleFinishAllTodo() {
+    await finishAllTodo.execute(todos);
     await runRetrieveAllTodo();
   }
 
@@ -105,8 +113,13 @@ export function TodoPage({
       />
       <ListContainer>
         <ActionsContainer>
-          <Button onClick={handleRemoveAllTodos}>Remove All</Button>
-          <Button background="var(--color-emerald-green)">Finish All</Button>
+          <Button onClick={handleRemoveAllTodo}>Remove All</Button>
+          <Button
+            background="var(--color-emerald-green)"
+            onClick={handleFinishAllTodo}
+          >
+            Finish All
+          </Button>
         </ActionsContainer>
         {todos.map((todo) => (
           <TodoItem

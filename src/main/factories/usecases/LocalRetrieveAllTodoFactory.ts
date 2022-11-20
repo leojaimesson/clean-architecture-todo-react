@@ -1,7 +1,6 @@
-import { LocalRetrieveTodos } from "../../../data/usecases/LocalRetrieveTodos";
-import { Todo } from "../../../domain/models/Todo";
+import { LocalRetrieveAllTodo } from "../../../data/usecases/LocalRetrieveAllTodo";
 import { RetrieveSessionStorage } from "../../../infra/storage/RetrieveSessionStorage";
 
 export function makeLocalRetrieveAllTodoFactory(key: string) {
-  return new LocalRetrieveTodos(key, new RetrieveSessionStorage<Todo[]>());
+  return new LocalRetrieveAllTodo(key, new RetrieveSessionStorage<object>());
 }

@@ -4,6 +4,7 @@ import { makeLocalSaveTodoFactory } from "../usecases/LocalSaveTodoFactory";
 import { makeLocalRemoveTodoFactory } from "../usecases/LocalRemoveTodoFactory";
 import { makeLocalRetrieveAllTodoFactory } from "../usecases/LocalRetrieveAllTodoFactory";
 import { makeLocalRemoveAllTodoFactory } from "../usecases/LocalRemoveAllTodoFactory";
+import { makeLocalFinishAllTodoFactory } from "../usecases/LocalFinishAllTodoFactory";
 
 export function makeTodoPageFactory() {
   return (
@@ -12,6 +13,7 @@ export function makeTodoPageFactory() {
       retrieveAllTodo={makeLocalRetrieveAllTodoFactory("todos")}
       removeTodo={makeLocalRemoveTodoFactory("todos")}
       removeAllTodo={makeLocalRemoveAllTodoFactory("todos")}
+      finishAllTodo={makeLocalFinishAllTodoFactory("todos")}
       generateUUID={makeGenerateUUIDFactory()}
     />
   );
