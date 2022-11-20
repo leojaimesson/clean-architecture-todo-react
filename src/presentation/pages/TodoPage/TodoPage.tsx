@@ -10,11 +10,14 @@ import { Todo } from "../../../domain/models/Todo";
 import { SaveTodo } from "../../../domain/usecases/SaveTodo";
 import { RemoveTodo } from "../../../domain/usecases/RemoveTodo";
 import { RetrieveTodos } from "../../../domain/usecases/RetrieveTodos";
-import { Title } from "../../components/Title/Title";
-import { Input } from "../../components/Input/Input";
-import { CheckboxContainer, Container, ItemContainer, ListContainer } from "./TodoPageStyles";
-import { Button } from "../../components/Button/Button";
-import { Checkbox } from "../../components/Checkbox/Checkbox";
+import { Title } from "../../components/atoms/Title/Title";
+import { Input } from "../../components/atoms/Input/Input";
+import {
+  Container,
+  ListContainer,
+} from "./TodoPageStyles";
+
+import { TodoItem } from "../../components/molecules/TodoItem/TodoItem";
 
 type Props = {
   saveTodo: SaveTodo;
@@ -60,7 +63,7 @@ export function TodoPage({
     await runRetrieveTodos();
   }
 
-  async function handleSave(event: KeyboardEvent) {
+  async function handleEnterInput(event: KeyboardEvent) {
     if (event.key === "Enter") {
       const todo: Todo = {
         description,
@@ -68,10 +71,14 @@ export function TodoPage({
         key: generateUUID.execute(),
         createdAt: new Date(),
       };
-      await saveTodo.execute(todo);
-      await runRetrieveTodos();
+      await handleSaveTodo(todo);
       setDescription("");
     }
+  }
+
+  async function handleSaveTodo(todo: Todo) {
+    await saveTodo.execute(todo);
+    await runRetrieveTodos();
   }
 
   async function handleMarkAsDone(todo: Todo) {
@@ -87,21 +94,18 @@ export function TodoPage({
         type="text"
         value={description}
         onChange={handleChange}
-        onKeyDown={handleSave}
+        onKeyDown={handleEnterInput}
         placeholder="enter a description"
       />
       <ListContainer>
         {todos.map((todo) => (
-          <ItemContainer key={todo.key}>
-            <CheckboxContainer checked={todo.done}>
-              <Checkbox
-                checked={todo.done}
-                onChange={() => handleMarkAsDone(todo)}
-              />
-              <span>{todo.description}</span>
-            </CheckboxContainer>
-            <Button onClick={() => handleRemoveTodo(todo)}>remove</Button>
-          </ItemContainer>
+          <TodoItem
+            key={todo.key}
+            todo={todo}
+            onChangeCheckbox={handleMarkAsDone}
+            onClickDeleteButton={handleRemoveTodo}
+            onClickSaveButton={handleSaveTodo}
+          />
         ))}
       </ListContainer>
     </Container>

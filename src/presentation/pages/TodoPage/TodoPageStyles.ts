@@ -16,29 +16,3 @@ export const ListContainer = styled.div`
   padding: 15px;
   border-radius: 5px;
 `;
-
-type CheckboxContainerProps = {
-  checked: boolean;
-};
-
-export const CheckboxContainer = styled.label`
-  display: flex;
-  align-items: flex-start;
-  opacity: ${({ checked }: CheckboxContainerProps) => (checked ? "0.5" : "1")};
-
-  span {
-    margin: 0px 1rem;
-    font-size: 1.2rem;
-    min-height: 28px;
-    text-decoration: ${({ checked }: CheckboxContainerProps) =>
-      checked ? "line-through" : "none"};
-    color: ${({ checked }: CheckboxContainerProps) =>
-      checked ? "var(--color-green)" : "var(--shape)"};
-  }
-`;
-
-export const ItemContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0px;
-`;
